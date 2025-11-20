@@ -15,7 +15,7 @@ export class MovieService {
     return this.http.get<any>(this.urlApi + 'movie.json');
   }
 
-  getMovieDetails(id: string): Observable<any> {
+  getMovieDetails(id: number): Observable<any> {
     return this.http.get<any>(this.urlApi + id + '/movie.json');
   }
 }

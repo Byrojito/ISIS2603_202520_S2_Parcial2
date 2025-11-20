@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { MovieService } from '../movie.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-movie-detail',
@@ -11,10 +13,19 @@ export class MovieDetailComponent implements OnInit, OnChanges {
   @Input() movie: any;
   safeTrailerUrl: SafeResourceUrl | null = null;
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer, private movieservice: MovieService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.updateTrailerUrl();
+    this.route.paramMap.subscribe(params => {
+      const id = Number(params.get('id'));
+
+      this.movieservice.getMovieDetails(id).subscribe(data => {
+        this.movie = data;
+        this.updateTrailerUrl();
+        console.log('Pelicula cargada', this.movie);
+      });
+    }
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
