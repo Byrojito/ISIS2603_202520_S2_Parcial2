@@ -1,12 +1,25 @@
-
 <div class='container mt-4'>
-  <div clas = 'raw'>
+  <div ngClass = 'raw'>
     @for(movie of movies; track movie.id){
     <div class="col-md-4 mb-4">
       <div class="card h-100">
         <img [src]= "movie.poster" class ="card-img-top movie-img" alt="{{ movie.titulo }}">
         <div class="card-body">
           <h5 class="card-title" >{{ movie.titulo }}</h5>
+          <p class="card-text">Director: {{ movie.director }}</p>
+          <p class="card-text">Duración: {{ movie.duracion_minutos }} min</p>
+
+        <a [routerLink]="['/movie', movie.id]" class="btn btn-primary">
+          Ver Detalles
+        </a>
+        </div>
+
+        <td>
+            <button class="btn btn-info">
+              Detalle
+              <span class="badge bg-secondary">{{ movie }}</span>
+            </button>
+        </td>
 
         <tr (click)="onSelect(movie)">
           <td>{{ movie.titulo }}</td>
@@ -20,9 +33,14 @@
           <td>{{ movie.duracion_minutos }} min</td>
           <td>{{ movie.director }} </td>
         </tr>
+        </div>
+    }
+
+    @empty {
+          <div class = "col-12">
+            <p>No hay películas disponibles.</p>
+          </div>
+
         }
-
-
-
   </div>
 </div>
