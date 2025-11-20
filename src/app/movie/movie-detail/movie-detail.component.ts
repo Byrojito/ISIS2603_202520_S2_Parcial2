@@ -46,4 +46,18 @@ export class MovieDetailComponent implements OnInit, OnChanges {
       this.safeTrailerUrl = null;
     }
   }
+
+  // actor con mas peliculas en su filmografia
+  getActorMasPeliculas(): string {
+    if (!this.movie || !this.movie.actors || this.movie.actors.length === 0) {
+      return 'N/A';
+    }
+    let topActor = this.movie.actors[0];
+    for (const actor of this.movie.actors) {
+      if (actor.filmography.length > topActor.filmography.length) {
+        topActor = actor;
+      }
+    }
+    return topActor.name;
+  }
 }

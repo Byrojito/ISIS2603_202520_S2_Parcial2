@@ -28,4 +28,12 @@ export class MovieListComponent implements OnInit {
     this.selectedMovie = movie;
     this.selected = true;
   }
+
+  getCantidadActoresPerMovie(){
+    return this.movieservice.getMovies().subscribe(data => {
+      this.movies = data;
+      return this.movies.length;
+    });
+  }
+
 }
